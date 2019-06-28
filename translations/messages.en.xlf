@@ -1,0 +1,67 @@
+<?xml version="1.0"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+    <file source-language="en" datatype="plaintext" original="file.ext">
+        <body>
+            <trans-unit id="Name">
+                <source>Name</source>
+                <target>Nazwa</target>
+            </trans-unit>
+            <trans-unit id="Life">
+                <source>Life</source>
+                <target>Zdrowie</target>
+            </trans-unit>
+            <trans-unit id="Exp">
+                <source>Experience</source>
+                <target>Doświadczenie</target>
+            </trans-unit>
+            <trans-unit id="actions">
+                <source>Actions</source>
+                <target>Akcje</target>
+            </trans-unit>
+            <trans-unit id="show">
+                <source>Show</source>
+                <target>Podgląd</target>
+            </trans-unit>
+            <trans-unit id="edit">
+                <source>Edit</source>
+                <target>Edytuj</target>
+            </trans-unit>
+            <trans-unit id="delete">
+                <source>Delete</source>
+                <target>Usuń</target>
+            </trans-unit>
+            <trans-unit id="add">
+                <source>Add Monster</source>
+                <target>Dodaj potwora</target>
+            </trans-unit>
+            <trans-unit id="login">
+                <source>Login</source>
+                <target>Logowanie</target>
+            </trans-unit>
+            <trans-unit id="email">
+                <source>Email address</source>
+                <target>Adres email</target>
+            </trans-unit>
+            <trans-unit id="password">
+                <source>Password</source>
+                <target>Hasło</target>
+            </trans-unit>
+            <trans-unit id="action.login">
+                <source>action.login</source>
+                <target>Zaloguj</target>
+            </trans-unit>
+             <trans-unit id="Home">
+                <source>Home</source>
+                <target>Strona Główna</target>
+            </trans-unit>
+            <trans-unit id="Register">
+                <source>Register</source>
+                <target>Zarejestruj</target>
+            </trans-unit>
+            <trans-unit id="Logout">
+                <source>Logout</source>
+                <target>Wyloguj</target>
+            </trans-unit>
+        </body>
+    </file>
+</xliff>

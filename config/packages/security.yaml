@@ -1,0 +1,48 @@
+security:
+    encoders:
+        App\Entity\User:
+            algorithm: bcrypt
+
+    # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
+    providers:
+        app_user_provider:
+            entity:
+                class: App\Entity\User
+                property: email
+    firewalls:
+        dev:
+            pattern: ^/(_(profiler|wdt)|css|images|js)/
+            security: false
+        main:
+            anonymous: true
+
+            guard:
+                authenticators:
+                    - App\Security\LoginFormAuthenticator
+
+                # redirect anonymous users to the login page
+                entry_point: App\Security\LoginFormAuthenticator
+
+            logout:
+                path: security_logout
+                target: monster_index
+
+            switch_user: false
+            logout_on_user_change: true
+
+                # activate different ways to authenticate
+
+                # http_basic: true
+                # https://symfony.com/doc/current/security.html#a-configuring-how-your-users-will-authenticate
+
+                # form_login: true
+                # https://symfony.com/doc/current/security/form_login_setup.html
+
+                # Easy way to control access for large sections of your site
+                # Note: Only the *first* access control that matches will be used
+    access_control:
+            - { path: ^/monster/index, roles: IS_AUTHENTICATED_ANONYMOUSLY}
+            - { path: ^/monster/index, roles: ROLE_USER}
+            - { path: ^/monster/new, roles: ROLE_USER}
+            - { path: ^/monster/edit, roles: ROLE_USER}
+            - { path: ^/monster/delete, roles: ROLE_USER}

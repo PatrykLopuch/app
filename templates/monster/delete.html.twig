@@ -1,0 +1,9 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Monster deleted!</h1>
+    <h2>{{ monster.name }}</h2>
+    <h3>Health {{ monster.health }}</h3>
+    <h3>Experience {{ monster.experience }}</h3>
+    <a href="/monster/index">Go back</a>
+{% endblock %}
