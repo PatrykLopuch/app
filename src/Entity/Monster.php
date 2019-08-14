@@ -51,6 +51,11 @@ class Monster
     private $Experience;
 
     /**
+     * @ORM\OneToOne(targetEntity="App\Entity\Photo", mappedBy="monster", cascade={"persist", "remove"})
+     */
+    private $photo;
+
+    /**
      * @return int|null
      *
      * getter for ID
@@ -125,6 +130,24 @@ class Monster
     public function setExperience(int $Experience): self
     {
         $this->Experience = $Experience;
+
+        return $this;
+    }
+
+    public function getPhoto(): ?Photo
+    {
+        return $this->photo;
+    }
+
+    public function setPhoto(?Photo $photo): self
+    {
+        $this->photo = $photo;
+
+        // set (or unset) the owning side of the relation if necessary
+        $newMonster = $photo === null ? null : $this;
+        if ($newMonster !== $photo->getMonster()) {
+            $photo->setMonster($newMonster);
+        }
 
         return $this;
     }

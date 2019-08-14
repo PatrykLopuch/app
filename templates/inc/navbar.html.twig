@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-sm navbar-dark bg-info mb-3">
     <div class="container">
-        <a href="/monster/index" class="navbar-brand">Monster List</a>
+        <a href="/" class="navbar-brand">Monster List</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#mobile-nav">
              <span class="navbar-toggle-icon"></span>
         </button>
@@ -8,7 +8,7 @@
         <div class="collapse navbar-collapse" id="mobile-nav">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a class="nav-link text-dark" href="/monster/index">{{ 'Home' | trans }}</a>
+                    <a class="nav-link text-dark" href="/">{{ 'Home' | trans }}</a>
                 </li>
                 {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
                 <li class="nav-item">
@@ -16,7 +16,7 @@
                 </li>
                 {% endif %}
                 <li class="nav-item">
-                    <a class="nav-link text-dark" href="/monster/new">{{ 'Add Monster'|trans }}</a>
+                    <a class="nav-link text-dark" href="/new">{{ 'Add Monster'|trans }}</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link text-dark" href="/register">{{ 'Register'|trans }}</a>

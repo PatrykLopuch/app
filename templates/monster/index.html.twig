@@ -27,9 +27,9 @@
     <td>{{ monster.health }}</td>
     <td>{{ monster.experience }}</td>
     <td>
-        <a href="/monster/{{ monster.id }}" class="btn btn-dark">{{ 'Show'|trans }}</a>
-        <a href="/monster/edit/{{ monster.id }}" class="btn btn-light border border-secondary">{{ 'Edit'|trans }}</a>
-        <a href="/monster/delete/{{ monster.id }}" onclick="return confirm('Are you sure you want to delete {{ monster.name }}?')" class="btn btn-danger ml-1 delete-monster" data-id=>
+        <a href="/{{ monster.id }}" class="btn btn-dark">{{ 'Show'|trans }}</a>
+        <a href="/edit/{{ monster.id }}" class="btn btn-light border border-secondary">{{ 'Edit'|trans }}</a>
+        <a href="/delete/{{ monster.id }}" onclick="return confirm('Are you sure you want to delete {{ monster.name }}?')" class="btn btn-danger ml-1 delete-monster" data-id=>
             {{ 'Delete'|trans }}</a>
     </td>
 

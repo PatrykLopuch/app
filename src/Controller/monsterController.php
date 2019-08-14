@@ -22,14 +22,14 @@ use Symfony\Component\Translation\TranslatorInterface;
  * Class monsterController
  * @package App\Controller
  *
- * @Route("/monster")
+ * @Route("/")
  */
 class monsterController extends AbstractController
 {
     /**
      * @return Response
      *
-     * @\Sensio\Bundle\FrameworkExtraBundle\Configuration\Route("/index", name="monster_index")
+     * @\Sensio\Bundle\FrameworkExtraBundle\Configuration\Route("/", name="monster_index")
      * @param Request HTTP $request Request
      * @param MonsterRepository $repository Repository
      * @param PaginatorInterface $paginator Paginator

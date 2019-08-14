@@ -20,7 +20,7 @@
             </trans-unit>
             <trans-unit id="show">
                 <source>Show</source>
-                <target>Podgląd</target>
+                <target>Więcej</target>
             </trans-unit>
             <trans-unit id="edit">
                 <source>Edit</source>
