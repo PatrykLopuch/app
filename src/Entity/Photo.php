@@ -7,6 +7,8 @@ use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Validator\Constraints as Assert;
+use Exception;
+use Serializable;
 
 /**
  * Class Photo.
@@ -26,7 +28,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  *     fields={"file"}
  * )
  */
-class Photo implements \Serializable
+class Photo implements Serializable
 {
     /**
      * Primary Key
@@ -39,15 +41,8 @@ class Photo implements \Serializable
      */
     private $id;
 
-    /**
-     * @ORM\Column(type="datetime")
-     */
-    private $createdAt;
 
-    /**
-     * @ORM\Column(type="datetime")
-     */
-    private $updatedAt;
+
 
     /**
      * File.
@@ -80,6 +75,12 @@ class Photo implements \Serializable
 
     /**
      * @ORM\Column(type="string", length=60)
+     *
+     *   @Assert\NotBlank
+     *   @Assert\Type("string")
+     *   @Assert\Length(
+     *     max="50",
+     * )
      */
     private $name;
 
@@ -93,46 +94,28 @@ class Photo implements \Serializable
         return $this->id;
     }
 
+
     /**
-     * Getter for Created at.
+     * Getter for File.
      *
-     * @return \DateTimeInterface|null Created at
+     * @return mixed|null File
      */
-    public function getCreatedAt(): ?\DateTimeInterface
-    {
-        return $this->createdAt;
-    }
-
-
-    public function setCreatedAt(\DateTimeInterface $createdAt): self
-    {
-        $this->createdAt = $createdAt;
-
-        return $this;
-    }
-
-    public function getUpdatedAt(): ?\DateTimeInterface
-    {
-        return $this->updatedAt;
-    }
-
-    public function setUpdatedAt(\DateTimeInterface $updatedAt): self
-    {
-        $this->updatedAt = $updatedAt;
-
-        return $this;
-    }
-
     public function getFile(): ?string
     {
         return $this->file;
     }
 
-    public function setFile(string $file): self
+    /**
+     * Setter for File name.
+     *
+     * @param mixed|null $file File
+     *
+     * @throws Exception
+     */
+    public function setFile(string $file): void
     {
         $this->file = $file;
 
-        return $this;
     }
     /**
      * Getter for Monster.
@@ -144,11 +127,15 @@ class Photo implements \Serializable
         return $this->monster;
     }
 
-    public function setMonster(?Monster $monster): self
+    /**
+     * Setter for Monster.
+     *
+     * @param Monster $monster Monster entity
+     */
+    public function setMonster(?Monster $monster): void
     {
         $this->monster = $monster;
 
-        return $this;
     }
 
     public function getName(): ?string
@@ -181,7 +168,7 @@ class Photo implements \Serializable
     }
 
     /**
-     * @see \Serializable::unserialize()
+     * @see Serializable::unserialize()
      *
      * @param string $serialized Serialized object
      */

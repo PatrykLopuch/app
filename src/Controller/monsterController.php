@@ -14,6 +14,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Knp\Component\Pager\PaginatorInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -36,19 +37,21 @@ class monsterController extends AbstractController
      */
     public function index(Request $request, MonsterRepository $repository, PaginatorInterface $paginator): Response {
 
-        $monsters = $this->getDoctrine()->getRepository(Monster::class)->findAll();
+        $monsters = $this->getDoctrine()->getRepository(Monster::class)->findAll();   // to jest potrzebne żeby działało bez paginacji jak odkomentuję poniżej
 
-        $name = $request->query->getAlnum('Name');
+//        $id = $request->query->getAlnum('id');
+//
+//        $name = $request->query->getAlnum('Name');
 
-//        $pagination = $paginator->paginate(
-//            $repository->queryAll(),
+//        $pagination = $paginator->paginate(                                   // gdzieś tu jest bład który wywala całą apkę z powodu paginacji
+//            $repository->queryAll(),                                          // tzn nie do końca tu, tylko coś co z tego korzysta powoduje błąd
 //            $request->query->getInt('page', 1),
 //            Monster::NUMBER_OF_ITEMS
 //        );
-//
-        return $this->render('monster/index.html.twig', array('monsters' => $monsters));
 
-//
+        return $this->render('monster/index.html.twig', array('monsters' => $monsters));            // bez paginacji
+
+
 //        return $this->render(
 //            'monster/index.html.twig',
 //            ['pagination' => $pagination]
@@ -62,6 +65,9 @@ class monsterController extends AbstractController
      * @\Sensio\Bundle\FrameworkExtraBundle\Configuration\Route("/new", name="monster_new")
      * @Method({"GET", "POST"})
      *
+     *  @IsGranted(
+     *     "IS_AUTHENTICATED_REMEMBERED",
+     * )
      *
      */
     public function new(Request $request){

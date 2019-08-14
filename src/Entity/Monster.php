@@ -134,11 +134,20 @@ class Monster
         return $this;
     }
 
+    /**
+     * @return Photo|null
+     */
     public function getPhoto(): ?Photo
     {
         return $this->photo;
     }
 
+    /**
+     * @param Photo|null $photo
+     *
+     *
+     * @return Monster
+     */
     public function setPhoto(?Photo $photo): self
     {
         $this->photo = $photo;

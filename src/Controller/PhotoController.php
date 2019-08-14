@@ -8,8 +8,13 @@ namespace App\Controller;
 use App\Entity\Photo;
 use App\Entity\Monster;
 use App\Form\PhotoType;
+use App\Repository\MonsterRepository;
 use App\Repository\PhotoRepository;
 use App\Service\FileUploader;
+use Doctrine\ORM\OptimisticLockException;
+use Doctrine\ORM\ORMException;
+use Symfony\Component\Filesystem\Filesystem;
+use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
@@ -41,7 +46,9 @@ class PhotoController extends AbstractController
      *
      * @param \Symfony\Component\HttpFoundation\Request $request    HTTP request
      * @param \App\Repository\PhotoRepository           $repository Photo repository
-     * @param Monster $monster entity
+     * @param Monster $monster
+     *
+     *
      *
      * @return \Symfony\Component\HttpFoundation\Response HTTP response
      *
@@ -49,12 +56,12 @@ class PhotoController extends AbstractController
      * @throws \Doctrine\ORM\OptimisticLockException
      *
      * @Route(
-     *     "/new",
+     *     "/new/{id}",
      *     methods={"GET", "POST"},
      *     name="photo_new",
      * )
      */
-    public function new(Request $request, Monster $monster, PhotoRepository $repository): Response
+    public function new(Request $request, monster $monster, PhotoRepository $repository): Response
     {
         $photo = new Photo();
         $form = $this->createForm(PhotoType::class, $photo);
@@ -65,7 +72,7 @@ class PhotoController extends AbstractController
             $repository->save($photo);
             $this->addFlash('success', 'message.created_successfully');
 
-            return $this->redirectToRoute('task_index');
+            return $this->redirectToRoute('monster_index');
         }
 
         return $this->render(
@@ -92,6 +99,50 @@ class PhotoController extends AbstractController
         return $this->render(
             'photo/view.html.twig',
             ['photo' => $photo]
+        );
+    }
+
+    /**
+     * Delete action.
+     *
+     * @param \Symfony\Component\HttpFoundation\Request $request    HTTP request
+     * @param \App\Entity\Photo                         $photo      Photo entity
+     * @param \App\Repository\PhotoRepository           $repository Photo repository
+     *
+     * @return \Symfony\Component\HttpFoundation\Response HTTP response
+     *
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
+     *
+     * @Route(
+     *     "/{id}/delete",
+     *     methods={"GET", "DELETE"},
+     *     requirements={"id": "[1-9]\d*"},
+     *     name="photo_delete",
+     * )
+     */
+    public function delete(Request $request, Photo $photo, PhotoRepository $repository): Response
+    {
+        $form = $this->createForm(FormType::class, $photo, ['method' => 'DELETE']);
+        $form->handleRequest($request);
+
+        if ($request->isMethod('DELETE') && !$form->isSubmitted()) {
+            $form->submit($request->request->get($form->getName()));
+        }
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $repository->delete($photo);
+            $this->addFlash('success', 'message.deleted_successfully');
+
+            return $this->redirectToRoute('monster_index');
+        }
+
+        return $this->render(
+            'photo/delete.html.twig',
+            [
+                'form' => $form->createView(),
+                'photo' => $photo,
+            ]
         );
     }
 }
