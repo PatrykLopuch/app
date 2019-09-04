@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} Edit User {% endblock %}
+
+{% block body %}
+    {{ form_start(form) }}
+    {{ form_widget(form) }}
+    {{ form_end(form) }}
+    <br>
+    {% if is_granted('ROLE_ADMIN') %}
+    {#<a href="/user/{{ user.id }}/grantAdmin" class="btn btn-success">Zmień uprawnienia użytkownika</a>#}
+    <a href="{{ url('user_view', {id: user.id }) }}/grantAdmin" class="btn btn-success">Zmień uprawnienia użytkownika</a>
+        {#<a href="{{ url('monster_show',  {id: monster.id} ) }}" class="btn btn-dark">{{ 'Show'|trans }}</a>#}
+    {% endif %}
+    <a href="{{ url('user_view', {id: user.id }) }}/changePassword" class="btn btn-success">Zmień hasło użytkownika</a>
+    {#<a href="/user/{{ user.id }}/changePassword" class="btn btn-success">Zmień hasło użytkownika</a>#}
+{% endblock %}

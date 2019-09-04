@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    {#<div class="navigation text-center">#}
+    {#{{ knp_pagination_render(pagination) }}#}
+    {#</div>#}
+
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+            {#<th>{{ knp_pagination_sortable(pagination, 'Name'|trans, 't.Name') }}</th>#}
+            {#<th>{{ knp_pagination_sortable(pagination, 'Life'|trans, 't.Life') }}</th>#}
+            {#<th>{{ knp_pagination_sortable(pagination, 'Experience'|trans, 't.Experience') }}</th>#}
+            {#<th>{{ 'Actions'|trans }}</th>#}
+            <th>{{  'Name'|trans }}</th>
+            <th>{{ 'Email'|trans  }}</th>
+            <th>{{  'Status'|trans }}</th>
+            <th>{{ 'Actions'|trans }}</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            {% for user in users %}
+        <tr>
+            <td>{{ user.firstName }}</td>
+            <td>{{ user.email }}</td>
+            {% if  'ROLE_ADMIN' in user.roles %}
+            <td>Administrator</td>
+            {% else %}
+            <td>Użytkownik</td>
+            {% endif %}
+            <td>
+                <a href="{{ url('user_view', {id: user.id}) }}" class="btn btn-dark">Zobacz profil</a>
+
+
+                <a href="{{ url('user_edit', {id: user.id}) }} " class="btn btn-light border border-secondary">Edytuj</a>
+
+                <a href="{{ url('user_delete', {id: user.id}) }} " class="btn btn-danger border border-secondary" onclick="return confirm('Czy na pewno usunąć użytkownika {{ user.firstname }}?')">Usuń</a>
+            </td>
+
+        </tr>
+        </tbody>
+        {% endfor %}
+
+    </table>
+
+    {#<div class="navigation text-center">#}
+    {#{{ knp_pagination_render(pagination) }}#}
+    {#</div>#}
+{% endblock %}

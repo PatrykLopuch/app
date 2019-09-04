@@ -20,6 +20,12 @@ class PhotoRepository extends ServiceEntityRepository
     }
 
 
+    /**
+     * @param Photo $photo
+     *
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
+     */
     public function save(Photo $photo): void
     {
         $this->_em->persist($photo);

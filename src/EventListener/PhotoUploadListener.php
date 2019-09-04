@@ -9,9 +9,11 @@ use App\Entity\Photo;
 use App\Service\FileUploader;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use Doctrine\ORM\Event\PreUpdateEventArgs;
+use Doctrine\ORM\Mapping\Entity;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
-
+use Symfony\Component\Filesystem\Filesystem;
+use Exception;
 /**
  * Class PhotoUploadListener.
  */
@@ -25,13 +27,26 @@ class PhotoUploadListener
     protected $uploaderService = null;
 
     /**
+     * Filesystem
+     *
+     * @var Filesystem|null
+     *
+     */
+    protected $filesystem = null;
+
+    /**
      * PhotoUploadListener constructor.
      *
      * @param \App\Service\FileUploader $fileUploader File uploader service
+     *
+     * @param Filesystem $filesystem
      */
-    public function __construct(FileUploader $fileUploader)
+    public function __construct(FileUploader $fileUploader, Filesystem $filesystem)
     {
+        //    $this->filesystem = $filesystem;
+
         $this->uploaderService = $fileUploader;
+
     }
 
     /**
@@ -39,9 +54,11 @@ class PhotoUploadListener
      *
      * @param \Doctrine\ORM\Event\LifecycleEventArgs $args Event args
      *
+     *
+     *
      * @throws \Exception
      */
-    public function prePersist(LifecycleEventArgs $args): void
+    public function prePersist(LifecycleEventArgs $args ): void
     {
         $entity = $args->getEntity();
 
@@ -53,6 +70,8 @@ class PhotoUploadListener
      *
      * @param \Doctrine\ORM\Event\PreUpdateEventArgs $args Event args
      *
+     *
+     *
      * @throws \Exception
      */
     public function preUpdate(PreUpdateEventArgs $args): void
@@ -60,6 +79,10 @@ class PhotoUploadListener
         $entity = $args->getEntity();
 
         $this->uploadFile($entity);
+
+
+//        dump($this);                                                    ////////// yyyyy do tego na razie nie dotarło
+//        die();
     }
 
     /**
@@ -75,12 +98,20 @@ class PhotoUploadListener
             return;
         }
 
+//        dump($entity);                                          // C:\Users\user\AppData\Local\Temp\php2E61.tmp  // Monstera dobrze dobiera z listy, ale czy to dobry katalog? Problem z move?
+//        die();
+
         $file = $entity->getFile();
         if ($file instanceof UploadedFile) {
             $filename = $this->uploaderService->upload($file);
             $entity->setFile($filename);
         }
+
+//        dump($entity);                                               // -file: "C:\Users\user\AppData\Local\Temp\php1DD8.tmp" // nazwa pliku pseudolosowa ale dalej w temp
+//        die();
     }
+
+
 
     public function postLoad(LifecycleEventArgs $args)
     {

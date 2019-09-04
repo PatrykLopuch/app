@@ -13,6 +13,7 @@ use App\Repository\PhotoRepository;
 use App\Service\FileUploader;
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -20,15 +21,19 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\File\File;
 
 /**
  * Class PhotoController.
  *
  * @Route("/photo")
+ *
+ * @IsGranted("ROLE_USER")
  */
 class PhotoController extends AbstractController
 {
     private $uploaderService = null;
+
 
 
     /**
@@ -64,6 +69,7 @@ class PhotoController extends AbstractController
     public function new(Request $request, monster $monster, PhotoRepository $repository): Response
     {
         $photo = new Photo();
+
         $form = $this->createForm(PhotoType::class, $photo);
         $form->handleRequest($request);
 

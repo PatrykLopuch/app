@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>{{ user.firstname }}</h1>
+    <h3>Adres email:   {{ user.email }}</h3>
+    <h3>Role:   {% if  'ROLE_ADMIN' in user.roles %}
+            Administrator
+        {% else %}
+            Szary użytkownik
+        {% endif %}</h3>
+
+    {% if is_granted('ROLE_ADMIN') %}
+        <a href="{{ url('user_index') }}" class="btn btn-primary">Powrót</a>
+    {% else %}
+        <a href="{{ url('monster_index') }}" class="btn btn-primary">Powrót</a>
+    {% endif %}
+
+    <a href="{{ url('user_edit', {id: user.id})}} " class="btn btn-warning">Edytuj dane</a>
+
+
+
+{% endblock %}

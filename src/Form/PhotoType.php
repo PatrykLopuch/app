@@ -12,6 +12,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormTypeInterface;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 /**
  * Class PhotoType.
@@ -31,22 +32,24 @@ class PhotoType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
-        $builder->add(
-            'name',        // Neither the property "name" nor one of the methods "getName()", "name()", "isName()", "hasName()", "__get()" exist and have public access in class
-            TextType::class,  //  wywalało bo tego co w child nie było w entity photo
-            [
-                'label' => 'name',  // label.name bylo
-                'required' => true,
-                'attr' => ['max_length' => 50],
-            ]
-        )->add(
+        $builder
+//              add(
+//            'name',        // Neither the property "name" nor one of the methods "getName()", "name()", "isName()", "hasName()", "__get()" exist and have public access in class
+//            TextType::class,  //  wywalało bo tego co w child nie było w entity photo
+//            [
+//                'label' => 'name',  // label.name bylo
+//                'required' => true,
+//                'attr' => ['max_length' => 50],
+//            ]
+        ->add(
             'file',
             FileType::class,
             [
                 'label' => 'photo',   // label.photo
                 'required' => true,
             ]
-        );
+        )->add('save', SubmitType::class, [
+        'attr' => ['class' => 'save'],]);
     }
 
     /**

@@ -1,9 +1,11 @@
 <?php
 
+/**
+ *  Photo entity
+ */
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -73,7 +75,7 @@ class Photo implements Serializable
      */
     private $monster;
 
-    /**
+    /**   tu było chyba name albo coś takiego, może się jeszcze przyda
      * @ORM\Column(type="string", length=60)
      *
      *   @Assert\NotBlank
@@ -82,7 +84,9 @@ class Photo implements Serializable
      *     max="50",
      * )
      */
-    private $name;
+
+
+
 
     /**
      * Getter for Id.
@@ -100,7 +104,7 @@ class Photo implements Serializable
      *
      * @return mixed|null File
      */
-    public function getFile(): ?string
+    public function getFile()
     {
         return $this->file;
     }
@@ -108,13 +112,15 @@ class Photo implements Serializable
     /**
      * Setter for File name.
      *
-     * @param mixed|null $file File
+     * @param string $file File
      *
-     * @throws Exception
+     * @return Photo
      */
-    public function setFile(string $file): void
+    public function setFile(string $file): self
     {
         $this->file = $file;
+
+        return $this;
 
     }
     /**
@@ -138,17 +144,7 @@ class Photo implements Serializable
 
     }
 
-    public function getName(): ?string
-    {
-        return $this->name;
-    }
 
-    public function setName(string $name): self
-    {
-        $this->name = $name;
-
-        return $this;
-    }
 
     /**
      * @see \Serializable::serialize()

@@ -144,7 +144,7 @@ class monsterController extends AbstractController
 
     /**
      *
-     * @\Sensio\Bundle\FrameworkExtraBundle\Configuration\Route("/{id}", name="monster_show")
+     * @\Sensio\Bundle\FrameworkExtraBundle\Configuration\Route("/{id}", name="monster_show",requirements={"id": "[1-9]\d*"})
      */
     public function view($id) {
 

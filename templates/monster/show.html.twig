@@ -4,6 +4,6 @@
 <h1>{{ monster.name }}</h1>
     <h3>Health {{ monster.health }}</h3>
     <h3>Experience {{ monster.experience }}</h3>
-    <a href="/">Go back</a>
-    <a href="/photo/new/{{ monster.id }}">Add photo</a>
+    <a href="{{ url('monster_index') }}">Go back</a>
+    <a href="{{ url('photo_new', {id: monster.id}) }}">Add photo</a>
 {% endblock %}

@@ -16,6 +16,11 @@ use Symfony\Component\Validator\Constraints as Assert;
 class User implements UserInterface
 {
     /**
+     *  Items per page
+     */
+    const NUMBER_OF_ITEMS = 10;
+
+    /**
      * Role user.
      *
      * @var string

@@ -1,32 +1,44 @@
 <nav class="navbar navbar-expand-sm navbar-dark bg-info mb-3">
     <div class="container">
-        <a href="/" class="navbar-brand">Monster List</a>
+        <a href="{{ url('monster_index') }}" class="navbar-brand">Monster List</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#mobile-nav">
              <span class="navbar-toggle-icon"></span>
         </button>
 
         <div class="collapse navbar-collapse" id="mobile-nav">
             <ul class="navbar-nav ml-auto">
+                {% if is_granted('ROLE_ADMIN') %}
                 <li class="nav-item">
-                    <a class="nav-link text-dark" href="/">{{ 'Home' | trans }}</a>
+                    <a class="nav-link text-dark" href=" {{ url('user_index') }}">{{ 'Users' | trans }}</a>
+                </li>
+                {% endif %}
+                <li class="nav-item">
+                    <a class="nav-link text-dark" href="{{ url('monster_index') }}">{{ 'Home' | trans }}</a>
                 </li>
                 {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
                 <li class="nav-item">
-                    <a href="#" class="nav-link text-dark">Zalogowano jako: {{ app.user.firstname }}</a>
+
+                    {#<a href="/user/{{ user.id }}" class="nav-link text-dark">Zalogowano jako: {{ app.user.firstname }}</a>#}
+
+                        <a href="{{ url('user_view', {id: app.user.id}) }}" class="nav-link text-dark">Zalogowano jako: {{ app.user.firstname }} [Zobacz profil]</a>
+
                 </li>
                     <li class="nav-item">
-                        <a class="nav-link text-dark" href="/new">{{ 'Add Monster'|trans }}</a>
+                        <a class="nav-link text-white font-weight-bold" href="{{ url('monster_new') }}">{{ 'Add Monster'|trans }}</a>
                     </li>
                 {% endif %}
-
+                {% if not is_granted('IS_AUTHENTICATED_REMEMBERED') %}
                 <li class="nav-item">
-                    <a class="nav-link text-dark" href="/register">{{ 'Register'|trans }}</a>
+                    <a class="nav-link text-dark" href="{{ url('register') }}">{{ 'Register'|trans }}</a>
                 </li>
+                {% endif %}
+                {% if is_granted('IS_AUTHENTICATED_REMEMBERED') == false %}
                 <li class="nav-item">
-                    <a class="nav-link text-dark" href="/login">{{ 'Login'|trans }}</a>
+                    <a class="nav-link text-dark" href="{{ url('security_login') }}">{{ 'Login'|trans }}</a>
                 </li>
+                {% endif %}
                 <li class="nav-item">
-                    <a class="nav-link text-dark" href="/logout">{{ 'Logout'|trans }}</a>
+                    <a class="nav-link text-dark" href="{{ url('security_logout') }}">{{ 'Logout'|trans }}</a>
                 </li>
             </ul>
         </div>
