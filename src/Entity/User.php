@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -69,6 +71,16 @@ class User implements UserInterface
      * @ORM\Column(type="string", length=255)
      */
     private $firstName;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Monster", mappedBy="author")
+     */
+    private $monsters;
+
+    public function __construct()
+    {
+        $this->monsters = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -160,5 +172,36 @@ class User implements UserInterface
     public function eraseCredentials()
     {
         // TODO: Implement eraseCredentials() method.
+    }
+
+    /**
+     * @return Collection|Monster[]
+     */
+    public function getMonsters(): Collection
+    {
+        return $this->monsters;
+    }
+
+    public function addMonster(Monster $monster): self
+    {
+        if (!$this->monsters->contains($monster)) {
+            $this->monsters[] = $monster;
+            $monster->setAuthor($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMonster(Monster $monster): self
+    {
+        if ($this->monsters->contains($monster)) {
+            $this->monsters->removeElement($monster);
+            // set the owning side to null (unless already changed)
+            if ($monster->getAuthor() === $this) {
+                $monster->setAuthor(null);
+            }
+        }
+
+        return $this;
     }
 }

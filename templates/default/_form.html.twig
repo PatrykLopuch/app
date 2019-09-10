@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+{% endblock %}
+
+{% block body %}
+
+
+
+    {{ form_start(form, { method: attr.method|default('POST'), action: attr.action }) }}
+    {% if false == form.vars.valid %}
+        {% include 'default/_single_flash_message.html.twig' with {
+            type: 'danger',
+            message: 'message.form_error'|trans,
+        }%}
+    {% endif %}
+    {{ form_widget(form) }}
+    <div class="form-group row float-sm-right">
+        <p><input type="submit" value="{{ submit_label|default('action.save'|trans) }}" class="btn btn-primary" /><p>
+    </div>
+    {% if back_to_list_path|default(false) %}
+        <div class="form-group row float-sm-left">
+            <p><a href="{{ url(back_to_list_path) }}" class="btn btn-link">
+                    {{ 'action.back_to_list'|trans }}</a></p>
+        </div>
+    {% endif %}
+
+    {{ form_end(form) }}
+
+{% endblock %}

@@ -29,9 +29,16 @@
     <td>
         {## {{ url('user_view', {id: app.user.id}) }#}
         <a href="{{ url('monster_index') }}{{ monster.id }}" class="btn btn-dark">{{ 'Show'|trans }}</a>
-        <a href="{{ url('monster_index') }}edit/{{ monster.id }}" class="btn btn-light border border-secondary">{{ 'Edit'|trans }}</a>
-        <a href="{{ url('monster_index') }}delete/{{  monster.id }}" onclick="return confirm('Czy na pewno usunąć potwora {{ monster.name }}?')" class="btn btn-danger ml-1 delete-monster" data-id=>
-            {{ 'Delete'|trans }}</a>
+        {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+            {% if is_granted("ROLE_ADMIN") or ( app.user.id  ==  monster.author.id ) %}
+            <a href="{{ url('monster_index') }}edit/{{ monster.id }}" class="btn btn-light border border-secondary">{{ 'Edit'|trans }}</a>
+                <a href="{{ url('monster_index') }}delete/{{  monster.id }}" onclick="return confirm('Czy na pewno usunąć potwora {{ monster.name }}?')" class="btn btn-danger ml-1 delete-monster" data-id=>
+                    {{ 'Delete'|trans }}</a>
+            {% endif %}
+        {% endif %}
+        {% if is_granted ("ROLE_ADMIN") %}
+
+        {% endif %}
     </td>
 
 </tr>

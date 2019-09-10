@@ -36,19 +36,22 @@ class UserType extends AbstractType
             ->add(
                 'first_name',
                 TextType::class,
+
                 [
-                    'label' => 'Imie',
+                    'label' => 'Name',
                     'required' => true,
+                    'attr' => ['class' => 'form-control']
                 ]
             )->add(
                 'email',
                 TextType::class,
                 [
-                    'label' => 'Adres email',
+                    'label' => 'Email',
                     'required' => true,
+                    'attr' => ['class' => 'form-control']
                 ]
             )
-            ->add('Zapisz zmiany', SubmitType::class, [
+            ->add('Save', SubmitType::class, [
                 'attr' => ['class' => 'btn btn-primary'],]);
     }
 

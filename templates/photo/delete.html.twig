@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    {#<h1>Obrazek usunięty!</h1>#}
+    {##}
+    {#<a href="{{ url('monster_index') }}" class="btn btn-primary">Powrót</a>#}
+
+    {{ form_start(form) }}
+    {{ form_widget(form) }}
+    <div class="form-group row float-sm-left mt-5">
+        <p><input type="submit" value="{{ submit_label|default('confirm.delete'|trans) }}" class="btn btn-danger" /><p>
+    </div>
+    {{ form_end(form) }}
+
+{% endblock %}

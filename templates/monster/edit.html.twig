@@ -3,9 +3,35 @@
 {% block title %} Edit Monster {% endblock %}
 
 {% block body %}
+
+
+
+
     {{ form_start(form) }}
     {{ form_widget(form) }}
     {{ form_end(form) }}
 
 
+{# schować dodawanie gdy jest już jakieś zdjęcie a pokazać gdy nie ma  #}
+    {% if not monster.photo|length  %}
+    <a href="{{ url('photo_new', {id: monster.id}) }}" class="btn btn-success mb-2" style="margin-top: 7px">Dodaj zdjęcie</a>
+    {% endif %}
+    {% if monster.photo is defined and monster.photo|length %}
+        <a href="{{ url('photo_edit', {id: monster.photo.id }) }}" class="btn btn-success mb-2" style="margin-top: 7px">Zmień zdjęcie</a>
+        <a href="{{ url('photo_delete', {id: monster.photo.id }) }}" class="btn btn-danger mb-2" style="margin-top: 7px" >Usuń zdjęcie</a>
+    {% endif %}
+
+
+    {% if monster.photo is defined and monster.photo|length %}
+        <div>
+            <img alt="" src="{{ asset('uploads/photos/'~ monster.photo.file.filename) }}">
+        </div>
+    {% else %}
+        {% include 'default/_single_flash_message.html.twig' with {
+            type: 'warning',
+            message: 'message.item_not_found'|trans
+        } %}
+    {% endif %}
+
 {% endblock %}
+

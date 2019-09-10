@@ -1,14 +1,14 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}
-    {{ 'title.photo_view' }}
+    {{ 'Podglad zdjęcia' }}
 {% endblock %}
 
 {% block body %}
-    <h1>{{ 'title.photo_view' }}</h1>
+    <h1>{{ 'title.photo_view' | trans }}</h1>
     {% if photo is defined and photo|length %}
         <div>
-            <img src="{{ asset('uploads/photos/'~ photo.file.filename) }}">
+            <img alt="" src="{{ asset('uploads/photos/'~ photo.file.filename) }}">
         </div>
     {% else %}
         {% include 'default/_single_flash_message.html.twig' with {

@@ -33,7 +33,7 @@ class AdminType extends AbstractType
     {
         $builder
 //
-            ->add('Potwierdzam zmiane uprawnien', SubmitType::class, [
+            ->add('grant.admin', SubmitType::class, [
                 'attr' => ['class' => 'btn btn-success'],]);
     }
 

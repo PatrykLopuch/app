@@ -91,7 +91,7 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 /**
  * Class PhotoType.
  */
-class PhotoType extends AbstractType
+class DeleteType extends AbstractType
 {
     /**
      * Builds the form.
@@ -115,7 +115,7 @@ class PhotoType extends AbstractType
                 'attr' => ['class' => 'form-control mb-2'],
             ]
         )->add('save', SubmitType::class, [
-       'attr' => ['class' => 'save form-control btn btn-primary'],]);;
+            'attr' => ['class' => 'save form-control'],]);;
     }
 
     /**

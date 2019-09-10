@@ -40,7 +40,7 @@ class RegistrationController extends Controller
 
             // do anything else you need here, like send an email
 
-            return $this->redirectToRoute('monster_index');
+            return $this->redirectToRoute('security_login');
         }
 
         return $this->render('registration/register.html.twig', [

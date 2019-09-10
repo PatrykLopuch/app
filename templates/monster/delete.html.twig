@@ -1,9 +1,9 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Monster deleted!</h1>
+    <h1>Potwór usunięty!</h1>
     <h2>{{ monster.name }}</h2>
     <h3>Health {{ monster.health }}</h3>
     <h3>Experience {{ monster.experience }}</h3>
-    <a href="{{ url('monster_index') }}">Go back</a>
+    <a href="{{ url('monster_index') }}" class="btn btn-primary">Powrót</a>
 {% endblock %}

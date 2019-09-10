@@ -10,6 +10,8 @@ use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Component\Validator\Constraints\Length;
 /**
  * Class ChangePasswordType.
  */
@@ -31,14 +33,29 @@ class ChangePasswordType extends AbstractType
         $builder->add(
             'password',
             RepeatedType::class, [
+
                 'type' => PasswordType::class,
                 'invalid_message' => 'Oba pola hasła muszą się zgadzać.',
                 'required' => true,
-                'first_options' => ['label' => 'Nowe haslo'],
-                'second_options' => ['label' => 'Powtorz haslo'],
+                'first_options' => ['label' => 'NewPass'],
+                'second_options' => ['label' => 'RepeatPass'],
+                'constraints' => [
+                    new NotBlank([
+                        'message' => 'NotEmpty',
+                    ]),
+                    new Length([
+                        'min' => 6,
+                        'minMessage' => 'Minimalna dlugosc hasla wynosi {{ limit }} znakow',
+                        // max length allowed by Symfony for security reasons
+                        'max' => 4096,
+                    ]),
+
+                ],
+                'attr' => ['class' => 'form-control'],
             ]
-        )->add('Zapisz zmiany', SubmitType::class, [
-            'attr' => ['class' => 'btn btn-success'],]);
+        )->add('save', SubmitType::class, [
+            'attr' => ['class' => 'btn btn-success'],
+            ]);
     }
     /**
      * Configures the options for this type.

@@ -87,6 +87,8 @@ class monsterController extends AbstractController
         if($form->isSubmitted() && $form->isValid()) {
             $monster = $form->getData();
 
+            $monster->setAuthor($this->getUser());       /////////////////  yyyyyyyyyyyy no chyba działa
+
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($monster); // przygotowac do wyslania
 
@@ -97,7 +99,7 @@ class monsterController extends AbstractController
         }
 
         return $this->render('monster/new.html.twig', array(
-            'form' => $form->createView()
+            'form' => $form->createView(),
         ));
     }
 
@@ -107,38 +109,58 @@ class monsterController extends AbstractController
      * @Method({"GET", "POST"})
      *
      *
+     *
+     * @IsGranted("ROLE_USER")
+     *
      */
     public function edit(Request $request, $id){
 
+
+        // ifa porównać autora z obecnym userem i tylko wtedy dopuścić a jak nie to paszoł won?
+        // trzeba jeszcze admina uwzględnić..
+
         $monster = $this->getDoctrine()->getRepository(Monster::Class)->find($id);
 
+//        $this->isGranted()                   // << sie pewnie przyda
+
+        if (($monster->getAuthor() == $this->getUser()) || ($this->isGranted("ROLE_ADMIN"))){       // jeżeli user to autor LUB user to admin to wpuszczamy
+            $form = $this->createFormBuilder($monster)->add('name',TextType::
+            class , array('attr'=>array('class'=>'form-control')))->add('health',NumberType::class, array('required'=>true,'attr'=>array('class'=>'form-control')))
+                ->add('experience',NumberType::class, array('required'=>true,'attr'=>array('class'=>'form-control')))
+                ->add('save',SubmitType::class, array(
+                    'label' => 'Save',
+                    'attr' => array('class' => 'btn btn-primary mt-3')
+                ))->getForm();
+
+            $form->handleRequest($request);
+
+            if($form->isSubmitted() && $form->isValid()) {
 
 
-        $form = $this->createFormBuilder($monster)->add('name',TextType::
-        class , array('attr'=>array('class'=>'form-control')))->add('health',NumberType::class, array('required'=>true,'attr'=>array('class'=>'form-control')))
-            ->add('experience',NumberType::class, array('required'=>true,'attr'=>array('class'=>'form-control')))
-            ->add('save',SubmitType::class, array(
-                'label' => 'Save Changes',
-                'attr' => array('class' => 'btn btn-primary mt-3')
-            ))->getForm();
+                $entityManager = $this->getDoctrine()->getManager();
+                //$entityManager->persist($monster); // przygotowac do wyslania
 
-        $form->handleRequest($request);
+                $entityManager->flush();  // wyslac dane
 
-        if($form->isSubmitted() && $form->isValid()) {
+                return $this->redirectToRoute('monster_index');
 
+            }
 
-            $entityManager = $this->getDoctrine()->getManager();
-            //$entityManager->persist($monster); // przygotowac do wyslania
+            return $this->render('monster/edit.html.twig', array(
+                'form' => $form->createView(),
+                'monster' => $monster
+            ));
+        } else {
 
-            $entityManager->flush();  // wyslac dane
+            // to zwracamy w sytuacji gdy autor nie jest zgodny z obecnym userem
+
+//        return $this->render('monster/index.html.twig', array(
+//            'monster' => $monster
+//        ));
 
             return $this->redirectToRoute('monster_index');
-
         }
 
-        return $this->render('monster/edit.html.twig', array(
-            'form' => $form->createView()
-        ));
     }
 
 
@@ -152,17 +174,25 @@ class monsterController extends AbstractController
 
 
 
-        return $this->render('monster/show.html.twig', array ('monster' => $monster));
+        return $this->render('monster/show.html.twig',
+
+            array ('monster' => $monster));
 
     }
 
     /**
      * @param $id
      *
+     *
+     *
      * @\Sensio\Bundle\FrameworkExtraBundle\Configuration\Route("/delete/{id}", name="monster_delete")
      * @Method({"DELETE"})
      *
-     * @return
+     *
+     *
+     *
+     * @return Response
+     *
      */
     public function delete($id) {
 

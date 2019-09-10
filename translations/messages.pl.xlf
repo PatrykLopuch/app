@@ -4,7 +4,7 @@
         <body>
             <trans-unit id="Name">
                 <source>Name</source>
-                <target>Name</target>
+                <target>Nazwa</target>
             </trans-unit>
             <trans-unit id="Life">
                 <source>Life</source>
@@ -77,6 +77,66 @@
             <trans-unit id="Health">
                 <source>Health</source>
                 <target>Zdrowie</target>
+            </trans-unit>
+            <trans-unit id="User">
+                <source>Users</source>
+                <target>Użytkownicy</target>
+            </trans-unit>
+            <trans-unit id="Email">
+                <source>Email</source>
+                <target>Adres Email</target>
+            </trans-unit>
+            <trans-unit id="Status">
+                <source>Status</source>
+                <target>Rola</target>
+            </trans-unit>
+            <trans-unit id="Save">
+                <source>Save</source>
+                <target>Zapisz</target>
+            </trans-unit>
+            <trans-unit id="Add">
+                <source>Add</source>
+                <target>Dodaj</target>
+            </trans-unit>
+            <trans-unit id="NewPass2">
+                <source>NewPass</source>
+                <target>Nowe hasło</target>
+            </trans-unit>
+            <trans-unit id="RepeatPass">
+                <source>RepeatPass</source>
+                <target>Powtórz hasło</target>
+            </trans-unit>
+            <trans-unit id="NotEmpty">
+                <source>NotEmpty</source>
+                <target>To pole nie może być puste</target>
+            </trans-unit>
+            <trans-unit id="ValidEmail">
+                <source>valid.email</source>
+                <target>Proszę podać prawidłowy adres email</target>
+            </trans-unit>
+            <trans-unit id="Autor">
+                <source>Autor</source>
+                <target>Autor</target>
+            </trans-unit>
+            <trans-unit id="message.item_not_found">
+                <source>message.item_not_found</source>
+                <target>Nie znaleziono zdjęcia</target>
+            </trans-unit>
+            <trans-unit id="GrantAdmin">
+                <source>Grant.admin</source>
+                <target>Potwierdź zmianę uprawnień</target>
+            </trans-unit>
+            <trans-unit id="label.photo">
+                <source>label.photo</source>
+                <target>Wybierz obrazek</target>
+            </trans-unit>
+            <trans-unit id="title.photo_view">
+                <source>title.photo_view</source>
+                <target>Podgląd zdjęcia</target>
+            </trans-unit>
+            <trans-unit id="confirm.delete">
+                <source>confirm.delete</source>
+                <target>Potwierdź usunięcie zdjęcia</target>
             </trans-unit>
 
         </body>

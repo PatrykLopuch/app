@@ -43,7 +43,7 @@ class PhotoUploadListener
      */
     public function __construct(FileUploader $fileUploader, Filesystem $filesystem)
     {
-        //    $this->filesystem = $filesystem;
+            $this->filesystem = $filesystem;
 
         $this->uploaderService = $fileUploader;
 
@@ -152,7 +152,9 @@ class PhotoUploadListener
         }
         $file = $entity->getFile();
         if ($file instanceof File) {
+            //dump($this->filesystem);                  // filesystem byl nieprzypisany wczesniej (tylko zadeklarowany jakby)
             $this->filesystem->remove($file->getPathname());
+
         }
     }
 

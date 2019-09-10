@@ -112,11 +112,11 @@ class Photo implements Serializable
     /**
      * Setter for File name.
      *
-     * @param string $file File
+     * @param file $file
      *
      * @return Photo
      */
-    public function setFile(string $file): self
+    public function setFile($file): self
     {
         $this->file = $file;
 

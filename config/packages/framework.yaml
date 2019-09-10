@@ -14,5 +14,7 @@ framework:
     php_errors:
         log: true
 
+    assets: ~
+
 parameters:
     photos_directory: '%kernel.project_dir%/public/uploads/photos'
